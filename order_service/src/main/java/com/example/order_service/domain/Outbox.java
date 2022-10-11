@@ -4,7 +4,6 @@ import com.example.order_service.converter.JsonToMapConverter;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
