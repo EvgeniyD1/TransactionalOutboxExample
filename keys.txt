@@ -1,0 +1,11 @@
+!!!not used
+docker-compose -f compose.yml up
+
+
+!!!used
+docker run -it --name zookeeper -p 2181:2181 -p 2888:2888 -p 3888:3888 debezium/zookeeper
+docker run -it --name kafka -p 9092:9092 --link zookeeper:zookeeper debezium/kafka
+docker run -it --name postgres -p 5433:5432 -e POSTGRES_DB=orders -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=root debezium/postgres
+docker run -it --name connect -p 8083:8083 -e GROUP_ID=1 -e CONFIG_STORAGE_TOPIC=my_connect_configs -e OFFSET_STORAGE_TOPIC=my_connect_offsets -e STATUS_STORAGE_TOPIC=my_connect_statuses --link zookeeper:zookeeper --link kafka:kafka --link postgres:postgres debezium/connect
+
+docker run -it --name kafdrop -p 9000:9000 -e KAFKA_BROKERCONNECT=172.17.0.3:9092 obsidiandynamics/kafdrop
