@@ -32,8 +32,6 @@ public class Outbox implements Serializable {
     @Column(name = "event_id")
     private Long eventId;
 
-//    @Type(type = "json")
-//    @Column(columnDefinition = "jsonb")
     @Convert(converter = JsonToMapConverter.class)
     private Map<String, Object> payload;
 

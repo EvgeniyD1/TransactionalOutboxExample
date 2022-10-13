@@ -9,10 +9,6 @@ services:
       - POSTGRES_DB=orders
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=root
-    command:
-      - "postgres"
-      - "-c"
-      - "wal_level=logical"
   zookeeper:
     image: debezium/zookeeper
     ports:
@@ -41,3 +37,9 @@ services:
       - zookeeper
       - kafka
       - postgres
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    ports:
+      - "9000:9000"
+    environment:
+      - KAFKA_BROKERCONNECT=172.17.0.3:9092

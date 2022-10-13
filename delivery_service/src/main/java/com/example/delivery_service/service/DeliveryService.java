@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DeliveryService {
 
-    @KafkaListener(topics = "orders_server.orders.outbox")
+    @KafkaListener(topics = "__logical.name_.public.outbox")
     public void receive(KafkaMessage message) {
 
         System.out.println(message);
