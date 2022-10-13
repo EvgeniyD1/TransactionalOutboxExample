@@ -23,6 +23,10 @@ services:
       - zookeeper
     environment:
       - ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INTERNAL_PLAINTEXT:PLAINTEXT
+      - KAFKA_ADVERTISED_LISTENERS=INTERNAL_PLAINTEXT://host.docker.internal:9092
+      - KAFKA_LISTENERS=INTERNAL_PLAINTEXT://0.0.0.0:9092
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INTERNAL_PLAINTEXT
   connect:
     image: debezium/connect
     ports:
@@ -42,4 +46,6 @@ services:
     ports:
       - "9000:9000"
     environment:
-      - KAFKA_BROKERCONNECT=172.17.0.3:9092
+      - KAFKA_BROKERCONNECT=kafka:9092
+    links:
+      - kafka
